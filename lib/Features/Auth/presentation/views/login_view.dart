@@ -9,6 +9,7 @@ class LoginView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: BuildAppBar(
+        showNotificationItem: false,
         context,
         title: "تسجيل الدخول",
       ),

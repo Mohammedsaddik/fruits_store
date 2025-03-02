@@ -9,16 +9,16 @@ AppBar BuildAppBar(context,
     bool showNotificationItem = true}) {
   return AppBar(
     actions: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: Container(
-          padding: const EdgeInsets.all(16),
-          decoration: const ShapeDecoration(
-            color: Color(0xFFEEF8ED),
-            shape: OvalBorder(),
-          ),
-          child: Visibility(
-            visible: showNotificationItem,
+      Visibility(
+        visible: showNotificationItem,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Container(
+            padding: const EdgeInsets.all(16),
+            decoration: const ShapeDecoration(
+              color: Color(0xFFEEF8ED),
+              shape: OvalBorder(),
+            ),
             child: SvgPicture.asset(
               Assets.imagesNotification,
             ),
