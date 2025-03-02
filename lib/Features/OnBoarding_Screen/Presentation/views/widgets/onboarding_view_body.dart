@@ -1,5 +1,6 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
+import 'package:fruits_store/Core/Services/shared_prefrences.dart';
 import 'package:fruits_store/Core/Widgets/custom_button.dart';
 import 'package:fruits_store/Core/utils/app_colors.dart';
 import 'package:fruits_store/Features/Auth/presentation/views/login_view.dart';
@@ -78,6 +79,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
                     key: const ValueKey(
                         "startButton"), // Important for AnimatedSwitcher
                     onTap: () {
+                      Prefs.setBool(kIsOnBoardingViewSeen, true);
                       Navigator.pushReplacementNamed(
                           context, LoginView.routeName);
                     },

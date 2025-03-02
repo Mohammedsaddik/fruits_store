@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:fruits_store/Core/Services/shared_prefrences.dart';
 import 'package:fruits_store/Core/healper_function/on_generate_routes.dart';
 import 'package:fruits_store/Features/Splash_Screen/presentation/views/splash_view.dart';
 import 'package:fruits_store/generated/l10n.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Prefs.init();
   runApp(const FruitsStore());
 }
 
