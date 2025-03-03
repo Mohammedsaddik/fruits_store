@@ -28,6 +28,31 @@ class AuthRepoImp implements AuthRepo {
       );
     } catch (e) {
       log("Exception in createUserWithEmailAndPassword ${e.toString()}");
+      return left(
+        const ServerFailure(message: " حدث خطأ ماالرجاء المحاولة في وقت لاحق"),
+      );
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInUserWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      var user = await firebaseAuthServise.signInWithEmailAndPass(
+        email: email,
+        password: password,
+      );
+      return Right(
+        UserModel.fromFireBaseUser(user),
+      );
+    } on CustomException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.message,
+        ),
+      );
+    } catch (e) {
+      log("Exception in signInUserWithEmailAndPassword ${e.toString()}");
       return left(const ServerFailure(
           message: " حدث خطأ ماالرجاء المحاولة في وقت لاحق"));
     }

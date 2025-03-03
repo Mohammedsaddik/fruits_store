@@ -55,7 +55,7 @@ class LoginViewBody extends StatelessWidget {
               height: 32.0,
             ),
             CustomButton(
-              onTap: () {},
+              onPressed: () {},
               text: "تسجيل دخول",
             ),
             const SizedBox(

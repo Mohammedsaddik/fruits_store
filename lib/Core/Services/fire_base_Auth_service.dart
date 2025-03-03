@@ -31,4 +31,31 @@ class FirebaseAuthServise {
       throw const CustomException("Something went wrong");
     }
   }
+
+  Future<User> signInWithEmailAndPass({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return credential.user!;
+    } on FirebaseAuthException catch (e) {
+      log("Exception in signInWithEmailAndPass ${e.toString()}");
+      if (e.code == 'user-not-found') {
+        throw const CustomException('هذا المستخدم غير موجود');
+      } else if (e.code == 'wrong-password') {
+        throw const CustomException('كلمة السر او البريد الإلكتروني غير صحيح ');
+      } else if (e.code == 'network- request failed') {
+        throw const CustomException("لا يوجد اتصال بالانترنت");
+      } else {
+        throw const CustomException();
+      }
+    } catch (e) {
+      log("Exception in signInWithEmailAndPass ${e.toString()}");
+      throw const CustomException("Something went wrong");
+    }
+  }
 }

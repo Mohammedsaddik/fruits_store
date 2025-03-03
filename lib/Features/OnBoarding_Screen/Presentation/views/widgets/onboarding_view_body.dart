@@ -78,7 +78,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
                   child: CustomButton(
                     key: const ValueKey(
                         "startButton"), // Important for AnimatedSwitcher
-                    onTap: () {
+                    onPressed: () {
                       Prefs.setBool(kIsOnBoardingViewSeen, true);
                       Navigator.pushReplacementNamed(
                           context, LoginView.routeName);
