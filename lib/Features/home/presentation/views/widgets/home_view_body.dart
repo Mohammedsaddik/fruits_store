@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_store/Features/home/presentation/views/widgets/Featured_List.dart';
 import 'package:fruits_store/Features/home/presentation/views/widgets/custom_home_app_bar.dart';
 import 'package:fruits_store/Features/home/presentation/views/widgets/search_text_field.dart';
 
@@ -27,6 +28,7 @@ class HomeViewBody extends StatelessWidget {
                 SizedBox(
                   height: 12.0,
                 ),
+                FeaturedList(),
               ],
             ),
           ),
