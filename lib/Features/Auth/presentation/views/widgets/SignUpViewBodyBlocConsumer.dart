@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fruits_store/Core/Widgets/Custom_Dialog.dart';
 import 'package:fruits_store/Core/Widgets/custam_snak_bar.dart';
 import 'package:fruits_store/Features/Auth/presentation/manager/signup_Cupit/signup_cubit.dart';
 import 'package:fruits_store/Features/Auth/presentation/views/widgets/signup_view_body.dart';
@@ -15,10 +16,18 @@ class SignUpViewBodyBlocConsumer extends StatelessWidget {
     return BlocConsumer<SignupCubit, SignupState>(
       listener: (context, state) {
         if (state is SignupSuccess) {
-          showBar(context, "تم تسجيل الدخول بنجاح");
+          showCustomDialog(
+            context,
+            message: "تم إنشاء حساب بنجاح",
+          );
+          showBar(context, "تم إنشاء حساب بنجاح");
           Navigator.pop(context);
         }
         if (state is SignupFailer) {
+          showCustomDialog(
+            context,
+            message: state.errorMessage,
+          );
           showBar(context, state.errorMessage);
         }
       },
