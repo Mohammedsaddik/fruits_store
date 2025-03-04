@@ -4,7 +4,7 @@ import 'package:fruits_store/Core/Services/get_it.dart';
 import 'package:fruits_store/Core/Widgets/custom_app_bar.dart';
 import 'package:fruits_store/Features/Auth/domain/repos/auth_repo.dart';
 import 'package:fruits_store/Features/Auth/presentation/manager/signin_cupit/signin_cubit.dart';
-import 'package:fruits_store/Features/Auth/presentation/views/widgets/login_view_body.dart';
+import 'package:fruits_store/Features/Auth/presentation/views/widgets/LoginViewBlocConsumer.dart';
 
 class LoginView extends StatelessWidget {
   const LoginView({super.key});
@@ -21,7 +21,7 @@ class LoginView extends StatelessWidget {
           context,
           title: "تسجيل الدخول",
         ),
-        body: LoginViewBody(),
+        body: LoginViewBlocConsumer(),
       ),
     );
   }

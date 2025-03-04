@@ -57,4 +57,46 @@ class AuthRepoImp implements AuthRepo {
           message: " حدث خطأ ماالرجاء المحاولة في وقت لاحق"));
     }
   }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInUserWithGooglle() async {
+    try {
+      var user = await firebaseAuthServise.signInWithGoogle();
+
+      return Right(
+        UserModel.fromFireBaseUser(user),
+      );
+    } on CustomException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.message,
+        ),
+      );
+    } catch (e) {
+      log("Exception in signInUserWithGooglle ${e.toString()}");
+      return left(const ServerFailure(
+          message: " حدث خطأ ماالرجاء المحاولة في وقت لاحق"));
+    }
+  }
+
+  @override
+  Future<Either<Failure, UserEntity>> signInUserWithFaceBook() async {
+    try {
+      var user = await firebaseAuthServise.signInWithFacebook();
+
+      return Right(
+        UserModel.fromFireBaseUser(user),
+      );
+    } on CustomException catch (e) {
+      return Left(
+        ServerFailure(
+          message: e.message,
+        ),
+      );
+    } catch (e) {
+      log("Exception in signInUserWithGooglle ${e.toString()}");
+      return left(const ServerFailure(
+          message: " حدث خطأ ماالرجاء المحاولة في وقت لاحق"));
+    }
+  }
 }
