@@ -10,4 +10,12 @@ class UserEntity {
     required this.uId,
     required this.phone,
   });
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'email': email,
+      'phone': phone,
+      'uId': uId,
+    };
+  }
 }
