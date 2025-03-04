@@ -24,6 +24,9 @@ class HomeViewBody extends StatelessWidget {
                   height: 16.0,
                 ),
                 SearchTextField(),
+                SizedBox(
+                  height: 12.0,
+                ),
               ],
             ),
           ),
