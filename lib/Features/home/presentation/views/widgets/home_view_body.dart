@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_store/Features/home/presentation/views/widgets/Best_Selling_Grid_View.dart';
 import 'package:fruits_store/Features/home/presentation/views/widgets/Best_Selling_Header.dart';
 import 'package:fruits_store/Features/home/presentation/views/widgets/Featured_List.dart';
 import 'package:fruits_store/Features/home/presentation/views/widgets/custom_home_app_bar.dart';
@@ -40,6 +41,7 @@ class HomeViewBody extends StatelessWidget {
               ],
             ),
           ),
+          BestSellingGridView(),
         ],
       ),
     );
