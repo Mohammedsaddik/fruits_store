@@ -11,10 +11,10 @@ class BestSellingGridView extends StatelessWidget {
     return SliverGrid.builder(
       itemCount: 4,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 16,
+          mainAxisSpacing: 6,
+          crossAxisSpacing: 6,
           crossAxisCount: 2,
-          childAspectRatio: 163 / 214),
+          childAspectRatio: 163 / 230),
       itemBuilder: (cotext, index) {
         return FruitItem();
       },

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:fruits_store/Core/utils/app_colors.dart';
 import 'package:fruits_store/Core/utils/app_images.dart';
 import 'package:fruits_store/Core/utils/app_text_styles.dart';
@@ -34,11 +33,9 @@ class FruitItem extends StatelessWidget {
                   const SizedBox(
                     height: 20.0,
                   ),
-                  Flexible(
-                    child: SvgPicture.asset(Assets.imagesWatermelonTest),
-                  ),
+                  Image.asset(Assets.imagesWatermelonTest),
                   const SizedBox(
-                    height: 20.0,
+                    height: 2.0,
                   ),
                   ListTile(
                     title: Text(
