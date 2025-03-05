@@ -34,6 +34,9 @@ class HomeViewBody extends StatelessWidget {
                   height: 12.0,
                 ),
                 BestSellingHeader(),
+                SizedBox(
+                  height: 8.0,
+                ),
               ],
             ),
           ),
