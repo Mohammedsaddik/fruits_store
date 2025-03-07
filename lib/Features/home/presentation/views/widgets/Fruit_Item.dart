@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:fruits_store/Core/Entites/Product_Entity/Product_Entity.dart';
+import 'package:fruits_store/Core/Widgets/Custom_Network_Image.dart';
 import 'package:fruits_store/Core/utils/app_colors.dart';
-import 'package:fruits_store/Core/utils/app_images.dart';
 import 'package:fruits_store/Core/utils/app_text_styles.dart';
 
 class FruitItem extends StatelessWidget {
   const FruitItem({
     super.key,
+    required this.productEntites,
   });
-
+  final ProductEntity productEntites;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -33,13 +35,22 @@ class FruitItem extends StatelessWidget {
                   const SizedBox(
                     height: 20.0,
                   ),
-                  Image.asset(Assets.imagesWatermelonTest),
+                  productEntites.imageUrl != null
+                      ? Flexible(
+                          child: CustomNetworkImage(
+                              ImgUrl: productEntites.imageUrl!),
+                        )
+                      : Container(
+                          color: Colors.grey,
+                          height: 100,
+                          width: 100,
+                        ),
                   const SizedBox(
                     height: 2.0,
                   ),
                   ListTile(
                     title: Text(
-                      "بطيخ",
+                      productEntites.name,
                       textAlign: TextAlign.right,
                       style: TextStyles.bold16.copyWith(
                         color: const Color(0xFF0C0D0D),
@@ -59,7 +70,7 @@ class FruitItem extends StatelessWidget {
                       TextSpan(
                         children: [
                           TextSpan(
-                            text: '20جنية ',
+                            text: '${productEntites.price}جنية  ',
                             style: TextStyles.bold16
                                 .copyWith(color: const Color(0xFFF4A91F)),
                           ),

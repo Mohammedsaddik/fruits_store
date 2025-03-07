@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_svg_provider/flutter_svg_provider.dart' as svg;
+import 'package:fruits_store/Core/Entites/Punner_Entity/punner_entity.dart';
+import 'package:fruits_store/Core/Widgets/Custom_Network_Image.dart';
 import 'package:fruits_store/Core/utils/app_images.dart';
 import 'package:fruits_store/Core/utils/app_text_styles.dart';
 import 'package:fruits_store/Features/home/presentation/views/widgets/Features_Item_Bottom.dart';
 
 class FeaturedItem extends StatelessWidget {
-  const FeaturedItem({super.key});
+  const FeaturedItem({super.key, required this.punnerEntity});
+  final PunnerEntity punnerEntity;
 
   @override
   Widget build(BuildContext context) {
@@ -20,11 +22,18 @@ class FeaturedItem extends StatelessWidget {
           child: Stack(
             children: [
               Positioned(
-                  left: 0.0,
-                  bottom: 0.0,
-                  top: 0.0,
-                  right: itemwidth * 0.3,
-                  child: SvgPicture.asset(Assets.imagesPageViewItem2Image)),
+                left: 0.0,
+                bottom: 0.0,
+                top: 0.0,
+                right: itemwidth * 0.3,
+                child: punnerEntity.imageUrl != null
+                    ? CustomNetworkImage(ImgUrl: punnerEntity.imageUrl!)
+                    : Container(
+                        color: Colors.grey,
+                        height: 100,
+                        width: 100,
+                      ),
+              ),
               Container(
                 width: itemwidth * 0.5,
                 decoration: const BoxDecoration(
@@ -40,14 +49,14 @@ class FeaturedItem extends StatelessWidget {
                         height: 25.0,
                       ),
                       Text(
-                        'عروض العيد',
+                        punnerEntity.namePunnerOne,
                         style: TextStyles.regular13.copyWith(
                           color: Colors.white,
                         ),
                       ),
                       const Spacer(),
                       Text(
-                        'خصم 25%',
+                        punnerEntity.namePunnerTwo,
                         style: TextStyles.bold16.copyWith(
                           color: Colors.white,
                         ),

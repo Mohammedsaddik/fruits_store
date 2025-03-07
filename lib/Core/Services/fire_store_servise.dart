@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fruits_store/Core/Services/data_base_service.dart';
-import 'package:fruits_store/Features/Auth/data/models/user_model.dart';
 
 class FireStoreServise implements DataBaseService {
   @override
@@ -20,10 +19,36 @@ class FireStoreServise implements DataBaseService {
   }
 
   @override
-  Future<Map<String, dynamic>> getData(
-      {required String path, required String documentId}) async {
-    var data = await firestore.collection(path).doc(documentId).get();
-    return data.data() as Map<String, dynamic>;
+  Future<dynamic> getData({
+    required String path,
+    String? documentId,
+    Map<String, dynamic>? query,
+  }) async {
+    if (documentId != null) {
+      var data = await firestore.collection(path).doc(documentId).get();
+      print("🔹 Retrieved document data: ${data.data()}");
+      return data.data();
+    } else {
+      Query<Map<String, dynamic>> data = firestore.collection(path);
+
+      if (query != null) {
+        if (query.containsKey('orderBy')) {
+          var orderByField = query['orderBy'];
+          bool descending = query['descending'] ?? false;
+          data = data.orderBy(orderByField, descending: descending);
+        }
+
+        if (query.containsKey('limit')) {
+          int limit = query['limit'];
+          data = data.limit(limit);
+        }
+      }
+
+      var result = await data.get();
+      var listData = result.docs.map((e) => e.data()).toList();
+      print("🔹 Retrieved collection data from [$path]: $listData");
+      return listData;
+    }
   }
 
   @override

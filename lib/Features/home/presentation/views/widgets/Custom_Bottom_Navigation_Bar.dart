@@ -3,7 +3,10 @@ import 'package:fruits_store/Features/home/domain/Entites/bottom_navigation_bar_
 import 'package:fruits_store/Features/home/presentation/views/widgets/Navigation_Bar_Item.dart';
 
 class CustomBottomNavigationBar extends StatefulWidget {
-  const CustomBottomNavigationBar({super.key, required this.onItemTapped});
+  const CustomBottomNavigationBar({
+    super.key,
+    required this.onItemTapped,
+  });
   final ValueChanged<int> onItemTapped;
 
   @override
@@ -17,13 +20,13 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar> {
   Widget build(BuildContext context) {
     return Container(
       width: 380,
-      height: 80,
+      height: 60,
       decoration: const ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
+            topLeft: Radius.circular(50),
+            topRight: Radius.circular(50),
           ),
         ),
         shadows: [

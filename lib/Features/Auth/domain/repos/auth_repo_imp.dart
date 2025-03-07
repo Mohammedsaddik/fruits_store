@@ -1,14 +1,17 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'package:dartz/dartz.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fruits_store/Core/Services/data_base_service.dart';
 import 'package:fruits_store/Core/Services/fire_base_Auth_service.dart';
+import 'package:fruits_store/Core/Services/shared_prefrences.dart';
 import 'package:fruits_store/Core/errors/excepyions.dart';
 import 'package:fruits_store/Core/errors/failers.dart';
 import 'package:fruits_store/Core/utils/backEnd_endPoit.dart';
 import 'package:fruits_store/Features/Auth/data/models/user_model.dart';
 import 'package:fruits_store/Features/Auth/domain/entites/user_entites.dart';
 import 'package:fruits_store/Features/Auth/domain/repos/auth_repo.dart';
+import 'package:fruits_store/constants.dart';
 
 class AuthRepoImp implements AuthRepo {
   final FirebaseAuthServise firebaseAuthServise;
@@ -64,7 +67,7 @@ class AuthRepoImp implements AuthRepo {
         password: password,
       );
       var userEntites = await getUserData(uid: user.uid);
-
+      await saveUserData(user: userEntites);
       return Right(
         userEntites,
       );
@@ -83,8 +86,9 @@ class AuthRepoImp implements AuthRepo {
 
   @override
   Future<Either<Failure, UserEntity>> signInUserWithGooglle() async {
+    User? user;
     try {
-      var user = await firebaseAuthServise.signInWithGoogle();
+      user = await firebaseAuthServise.signInWithGoogle();
       var userEntity = UserModel.fromFireBaseUser(user);
       var isDataExcist = await dataBaseService.CheckisDataExiext(
         path: DataBaseEndPoint.getUserData,
@@ -95,6 +99,7 @@ class AuthRepoImp implements AuthRepo {
       } else {
         await addUserData(user: userEntity);
       }
+      await saveUserData(user: userEntity);
       return Right(
         userEntity,
       );
@@ -121,11 +126,13 @@ class AuthRepoImp implements AuthRepo {
 
   @override
   Future<Either<Failure, UserEntity>> signInUserWithFaceBook() async {
+    User? user;
     try {
-      var user = await firebaseAuthServise.signInWithFacebook();
+      user = await firebaseAuthServise.signInWithFacebook();
 
       var userEntity = UserModel.fromFireBaseUser(user);
       await addUserData(user: userEntity);
+      await saveUserData(user: userEntity);
       return Right(
         userEntity,
       );
@@ -154,7 +161,7 @@ class AuthRepoImp implements AuthRepo {
   Future addUserData({required UserEntity user}) async {
     await dataBaseService.addData(
       path: DataBaseEndPoint.addUserData,
-      data: user.toMap(),
+      data: UserModel.fromEntity(user).toMap(),
       docimentId: user.uId,
     );
   }
@@ -164,5 +171,13 @@ class AuthRepoImp implements AuthRepo {
     var userData = await dataBaseService.getData(
         path: DataBaseEndPoint.getUserData, documentId: uid);
     return UserModel.fromJson(userData);
+  }
+
+  @override
+  Future saveUserData({required UserEntity user}) async {
+    var jsonData = jsonEncode(
+      UserModel.fromEntity(user).toMap(),
+    );
+    await Prefs.setString(kUserData, jsonData);
   }
 }

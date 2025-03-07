@@ -8,9 +8,10 @@ abstract class DataBaseService {
     String? docimentId,
   });
 
-  Future getData({
+  Future<dynamic> getData({
     required String path,
-    required String documentId,
+    String? documentId,
+    Map<String, dynamic>? query,
   });
 
   Future<bool> CheckisDataExiext({
